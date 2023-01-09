@@ -19,7 +19,7 @@
                 <div class="col-lg-3">
                     <!-- Blog post-->
                     <div class="card mb-3">
-                        <a href="#!"><img class="card-img-top" src="{{asset('img/order-history.png')}}" alt="..." /></a>
+                        <a href="/orders"><img class="card-img-top" src="{{asset('img/order-history.png')}}" alt="..." /></a>
                         <div class="card-body">
                             <h2 class="card-title h4">View Orders</h2>
                             <p class="card-text">View all past orders</p>
@@ -29,7 +29,7 @@
                 <div class="col-lg-3">
                     <!-- Blog post-->
                     <div class="card mb-3">
-                        <a href="#!"><img class="card-img-top" src="{{asset('img/add-stock.png')}}" alt="..." /></a>
+                        <a href="/stocks"><img class="card-img-top" src="{{asset('img/add-stock.png')}}" alt="..." /></a>
                         <div class="card-body">
                             <h2 class="card-title h4">Add Stock</h2>
                             <p class="card-text">Add New Stock</p>

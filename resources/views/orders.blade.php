@@ -50,6 +50,18 @@
                         <th scope="col">Medium Qty</th>
                         <th scope="col">Small Qty</th>
                         <th scope="col">Order Value</th>
+                        <th scope="col">Outlet</th>
+                        @if ($userType == 'owner')
+                            <th scope="col">Paid</th>
+                            <th scope="col">Issued</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        @endif
+                        @if ($userType == 'customer')
+                            <th scope="col">Paid</th>
+                            <th scope="col">Received</th>
+                            <th scope="col"></th>
+                        @endif
                     </tr>
                     </thead>
                     <tbody>
@@ -62,6 +74,22 @@
                                 <td>{{$order->medium_qty}}</td>
                                 <td>{{$order->small_qty}}</td>
                                 <td>{{$order->order_value}}</td>
+                                <td>{{$order->outlet_id}}</td>
+                                @if ($userType == 'owner' || $userType == 'customer')
+                                    <th scope="col">{{$order->is_paid == '1' ? 'Yes' : 'No'}}</th>
+                                    <th scope="col">{{$order->is_issued == '1' ? 'Yes' : 'No'}}</th>
+                                @endif
+                                @if ($userType == 'owner' && $order->is_paid != '1')
+                                    <td><a href="view-outlet/{{$order->id}}" class="form-control btn-danger text-center text-decoration-none">Mark as Paid</a></td>
+                                @endif
+                                @if ($userType == 'owner' && $order->is_issued != '1')
+                                    <td><a href="view-outlet/{{$order->id}}" class="form-control btn-success text-center text-decoration-none">Mark as Issued</a></td>
+                                @endif
+
+                                @if ($userType == 'customer' && $order->is_paid != '1')
+                                    <td><a href="view-outlet/{{$order->id}}" class="form-control btn-danger text-center text-decoration-none">Pay</a></td>
+                                @endif
+
                             </tr>
                         @endforeach
                     @endif

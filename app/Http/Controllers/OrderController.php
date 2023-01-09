@@ -25,8 +25,15 @@ class OrderController extends Controller
         $username = $request->session()->get('user');
         $userType = $request->session()->get('type');
         $userId = $this->getUserIdFromUsername($request);
-        $orders = DB::select('select * from orders WHERE customer_id = ? ORDER BY id DESC', [$userId]);
 
+        if ($userType == 'customer') {
+            $orders = DB::select('select * from orders WHERE customer_id = ? ORDER BY id DESC', [$userId]);
+        } else if ($userType == 'owner') {
+            $orders = DB::select('select * from orders WHERE outlet_id IN (SELECT outlet_id FROM outlets WHERE owner_id = ?) ORDER BY id DESC', [$userId]);
+        } else {
+            $orders = [];
+        }
+        
         if (empty($username)) {
             return redirect('/login');
         } else {

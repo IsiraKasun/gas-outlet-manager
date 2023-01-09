@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OutletController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\StockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,11 @@ Route::post('/update-price', [OutletController::class, 'updatePrice']);
 Route::get('/new-order', [OrderController::class, 'newOrder']);
 Route::get('/orders', [OrderController::class, 'orderHistory']);
 Route::post('/create-order', [OrderController::class, 'createOrder']);
+
+Route::get('/stocks', [StockController::class, 'getStocks']);
+Route::get('/add-stocks', [StockController::class, 'addStock']);
+Route::get('/get-stock/{id}', [StockController::class, 'getStock']);
+Route::post('/update-stock', [StockController::class, 'updateStock']);
 
 
 

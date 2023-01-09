@@ -12,11 +12,24 @@ class AuthController extends Controller
     {
 
         $username = $request->session()->get('user');
+        $userType = $request->session()->get('type');
+
+
 
         if (empty($username)) {
             return redirect('/login');
         } else {
-            return view('customer-home');
+            $user = $this->getUserFromUsername($username);
+            $fullName = $user->first_name . ' ' . $user->last_name;
+            $errors = [];
+            if ($userType === 'customer') {
+                return view('customer-home',  ['fullName'=>$fullName, 'errors'=>$errors]);
+            } else if ($userType === 'owner') {
+                return view('outlet-home',  ['fullName'=>$fullName, 'errors'=>$errors]);
+            } else if ($userType === 'admin') {
+                return view('admin-home',  ['fullName'=>$fullName, 'errors'=>$errors]);
+            }
+
         }
     }
 
@@ -157,6 +170,17 @@ class AuthController extends Controller
         if (!empty($users) && is_array($users) && count($users) > 0) {
             $user_id = $users[0];
             return $user_id;
+        } else {
+            return null;
+        }
+    }
+
+    public function getUserFromUsername($username) {
+        $users = DB::select('select * from user_credentials uc, users u WHERE username = ? AND uc.user_id = u.id', [$username]);
+
+        if (!empty($users) && is_array($users) && count($users) > 0) {
+            $user = $users[0];
+            return $user;
         } else {
             return null;
         }

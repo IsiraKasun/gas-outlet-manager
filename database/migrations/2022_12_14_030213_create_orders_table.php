@@ -22,6 +22,8 @@ class CreateOrdersTable extends Migration
             $table->integer('large_qty')->nullable(true);
             $table->dateTime('order_date');
             $table->decimal('order_value', 9, 2);
+            $table->boolean('is_paid')->nullable(true);
+            $table->boolean('is_issued')->nullable(true);
             $table->foreign('customer_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('outlet_id')->references('id')->on('outlets')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
